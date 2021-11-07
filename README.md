@@ -40,15 +40,29 @@ Building and deploying of the application happens in a following way:
 CodeDeploy is performing Blue/Green deployment in a following way:  
 **Step 1**: Deploying replacement task set  
 **Step 2**: Test traffic route setup  
+After this step, Lambda function will validate the setup of test taskset  
 **Step 3**: Rerouting production traffic to replacement task set  
-**Step 4**: Waiting for deployment to stabilizes  
+After this step, Lambda function will validate the setup of production taskset    
+**Step 4**: Waiting for deployment to stabilize  
 **Step 5**: Terminate original task set  
 
 More info: https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-steps-ecs.html#deployment-steps-what-happens
 
 Below is a simple deployment diagram in case of Blue/Green deployment strategy:
 
-<img src="https://raw.githubusercontent.com/nediml/name-generator/master/docs/deploy.png" />
+<img src="https://raw.githubusercontent.com/nediml/name-generator/master/docs/deploy.jpg" />
 - 
 
-###
+## HOW TO DEPLOY
+Before initiating the deployment check the following:
+1. Config files used in deployment execution: 
+  a. `.github/workflows/codedeploy/appspec.yaml` - info about the service to be deployed and validation lambda functions  
+  b. `.github/workflows/codedeploy/lambda` - lambda functions to be used for validating test and production task sets 
+  b. `.github/workflows/codedeploy/create-deployment.yaml` - info for creating and initiating new deployment
+2. `.github/workflows/cd.yaml` - deployment pipeline definition
+
+### **Initiating the deployment**
+1. Push changes to the `master` branch.
+2. Monitor the build and deployment pipeline in Github Actions: https://github.com/nediml/name-generator/actions
+3. Monitor the deployment execution in CodeDeploy: https://console.aws.amazon.com/codesuite/codedeploy/deployments?region=us-east-1
+Note that it is possible to cancel and rollback at any point using CodeDeploy console on the link above
