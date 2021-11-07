@@ -11,8 +11,8 @@ on:
     # ignoring changes not related to application code
     paths-ignore:
       - '**.md'
-      - tf/**
-      - docs/**
+      - 'tf/**'
+      - 'docs/**'
  
 jobs:
   BuildAndPush:
