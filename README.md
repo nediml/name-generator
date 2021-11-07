@@ -80,3 +80,4 @@ Application is reachable at:
     - view `terraform plan` results
     - set the values for terraform variables
 3. Approve/Reject the plan accordingly
+
