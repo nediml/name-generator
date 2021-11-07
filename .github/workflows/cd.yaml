@@ -7,7 +7,13 @@ on:
   push:
     branches:    
       - master
-
+    
+    # ignoring changes not related to application code
+    paths-ignore:
+      - '**.md'
+      - tf/**
+      - docs/**
+ 
 jobs:
   BuildAndPush:
     runs-on: ubuntu-latest

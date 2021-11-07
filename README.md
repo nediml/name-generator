@@ -54,6 +54,8 @@ Below is a simple deployment diagram in case of Blue/Green deployment strategy:
 - 
 
 ## HOW TO DEPLOY
+
+### **Deploying application changes**
 Before initiating the deployment check the following:  
 1. Config files used in deployment execution:  
   a. `.github/workflows/codedeploy/appspec.yaml` - info about the service to be deployed and validation lambda functions  
@@ -61,7 +63,7 @@ Before initiating the deployment check the following:
   c. `.github/workflows/codedeploy/create-deployment.yaml` - info for creating and initiating new deployment  
 2. `.github/workflows/cd.yaml` - deployment pipeline definition  
 
-### **Initiating the deployment**
+#### **Initiating application deployment**
 1. Push changes to the `master` branch.
 2. Monitor the build and deployment pipeline in Github Actions: https://github.com/nediml/name-generator/actions  
 3. Monitor the deployment execution in CodeDeploy: https://console.aws.amazon.com/codesuite/codedeploy/deployments?region=us-east-1  
@@ -71,3 +73,10 @@ Note that it is possible to cancel and rollback at any point using CodeDeploy co
 Application is reachable at: 
 - Prod task set: http://tf-lb-2021110609264334060000000b-792189563.us-east-1.elb.amazonaws.com:80
 - Test task set: http://tf-lb-2021110609264334060000000b-792189563.us-east-1.elb.amazonaws.com:81
+
+### **Deploying infra changes**
+1. Push changes to the `master` branch to te `tf/` directory
+2. Go to https://app.terraform.io/app/lokalise-interview/workspaces 
+    - view `terraform plan` results
+    - set the values for terraform variables
+3. Approve/Reject the plan accordingly
